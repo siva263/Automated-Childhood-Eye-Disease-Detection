@@ -1,0 +1,5 @@
+cd /d C:\ocular-disease-intelligent-recognition-deep-learning-master
+
+incerption v3 : python.exe odir_inception_v3_testing_inference.py
+
+vgg16 : python.exe odir_vgg_testing_inference.py

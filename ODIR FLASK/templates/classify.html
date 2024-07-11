@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>The Ocular-Disease Detector</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.5/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <style>
+        .hero {
+            background: black url(static/blue_background.jpg) center / cover;
+        }
+    </style>
+    <style>
+        .center {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .output-container {
+            display: flex;
+            align-items: flex-start;
+            justify-content: center;
+            margin-top: 100px;
+        }
+        .output-cell {
+            margin: 0 50px;
+            text-align: center;
+        }
+        .output-cell h2 {
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 20px;
+        }
+        .output-cell ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .output-cell li {
+            margin-bottom: 10px;
+        }
+        .output-cell span {
+            font-weight: bold;
+            color: whitesmoke;
+        }
+    </style>
+</head>
+<body>
+
+<!-- .hero -->
+<section class="hero is-fullheight" has-background-black>
+
+    <section class="section">
+        <div class="container">
+            <center>
+                <h1 class="title" style="font-size:3rem; color:white;">
+                    Ocular-Disease Classifier
+                </h1>
+            </center>
+        </div>
+    </section>
+
+    <div class="output-container">
+        <div class="output-cell">
+            <h2 style="font-size: 2rem; font-weight: bold; color:rgb(255, 255, 255); margin-right: 120px; margin-top: 20px;">IMAGE</h2>
+            <img class="pred_img" src="{{ url_for('send_file', filename=image_file_name)}}" style="max-width: 100%; height: 100%; margin-top: 60px; margin-right: 120px;">
+        </div>
+        <div class="output-cell">
+            <h2 style="font-size: 2rem; font-weight: bold; color:rgb(15, 223, 238);">Inception-v3</h2>
+            <h2 id="pred1" style="font-size: 2rem; color:rgb(223, 133, 15);">
+              Predicted:<span style="font-weight: bold; color:whitesmoke;"><span>{{ label1 }}</span>
+            </h2>
+            <h2 style="font-size: 2rem; color:rgb(223, 133, 15);">Confidence: <span style="font-weight: bold; color:whitesmoke;">{{ prob1 }}%</span></h2>
+            <h2 style="font-size: 2rem; color:rgb(223, 133, 15);">Ground Truth: <span style="font-weight: bold; color:whitesmoke;">{{ label1 }}</span></h2>
+            <h2 style="font-size: 2rem; font-weight: bold; color:rgb(226, 28, 51); text-align: left;">Predictions:</h2>
+            <ul style="list-style-type: none; padding: 0; font-size: 1.5rem; text-align: left;">
+                {% for class_name, probability in predictions1.items() %}
+                    <li>
+                      <span style="font-weight: bold; color:whitesmoke;">{{ class_name }}:</span > <span style="font-weight: bold; color:rgb(207, 206, 206);">{{ probability }}% </span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="output-cell">
+            <h2 style="font-size: 2rem; font-weight: bold; color:rgb(15, 223, 238);">VGG16</h2>
+            <h2 id="pred2" style="font-size: 2rem; color:rgb(223, 133, 15);">
+              Predicted:<span style="font-weight: bold; color:whitesmoke;">{{ label2 }}</span>
+            </h2>
+            <h2 style="font-size: 2rem; color:rgb(223, 133, 15);">Confidence: <span style="font-weight: bold; color:whitesmoke;">{{ prob2 }}%</span></h2>
+            <h2 style="font-size: 2rem; color:rgb(223, 133, 15);">Ground Truth: <span style="font-weight: bold; color:whitesmoke;">{{ label1 }}</span></h2>
+            <h2 style="font-size: 2rem; font-weight: bold; color:rgb(226, 28, 51); text-align: left;">Predictions:</h2>
+            <ul style="list-style-type: none; padding: 0; font-size: 1.5rem; text-align: left;">
+                {% for class_name, probability in predictions2.items() %}
+                    <li>
+                      <span style="font-weight: bold; color:whitesmoke;">{{ class_name }}:</span > <span style="font-weight: bold; color:rgb(207, 206, 206);">{{ probability }}% </span>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+    </div>
+
+    <section class="section">
+        <div class="container">
+          <div class="center">
+            <a href="/" class="button is-black is-inverted" style="font-size:1.5rem">Back to Home</a>
+        </div>
+        
+        </div>
+    </section>
+</section>
+<!-- /.hero -->
+
+<script src="/static/script.js"></script>
+
+</body>
+</html>
